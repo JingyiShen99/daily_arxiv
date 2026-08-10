@@ -1,0 +1,28 @@
+name: Daily arXiv Digest
+
+on:
+  schedule:
+    # 每天 UTC 时间 01:00 运行（对应北京时间 09:00）
+    - cron: '0 1 * * *'
+  workflow_dispatch: # 支持手动触发
+
+jobs:
+  run-script:
+    runs-runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: pip install arxiv openai requests
+
+      - name: Run Script
+        env:
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          FEISHU_WEBHOOK: ${{ secrets.FEISHU_WEBHOOK }}
+        run: python daily_arxiv.py
