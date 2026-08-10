@@ -2,13 +2,12 @@ name: Daily arXiv Digest
 
 on:
   schedule:
-    # 每天 UTC 时间 01:00 运行（对应北京时间 09:00）
     - cron: '0 1 * * *'
-  workflow_dispatch: # 支持手动触发
+  workflow_dispatch:
 
 jobs:
   run-script:
-    runs-runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
